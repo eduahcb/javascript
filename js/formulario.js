@@ -6,9 +6,18 @@ document.querySelector('#adicionar-paciente').onclick = function(event){
 
     let pacienteTr  =   montaTr(paciente);
 
+    let erros = validaPaciente(paciente);
+
+    if(erros.length > 0){
+        mostraErros(erros);
+        return;
+    }
+
     document.querySelector('#tabela-pacientes').appendChild(pacienteTr);
+    let ul = document.querySelector("#mensagens-erro");
 
     form.reset();
+    ul.innerHTML =  "";
 }
 function obterDadosPaciente(form){
     
@@ -40,6 +49,40 @@ function montaTr(paciente){
     pacienteTr.appendChild(montaTd(calculaImc(paciente.peso,paciente.altura),"info-imc"));
 
     return pacienteTr;
+}
+
+function validaPaciente(paciente){
+    let erros = [];
+
+    if(paciente.nome.length == 0){
+        erros.push("O nome não pode ser em branco");
+    }
+
+    if(paciente.gordura.length == 0){
+        erros.push("O percentual de gordura não pode ser em branco");
+    }
+
+    if(!validaAltura(paciente.altura)){
+        erros.push("Altura inválida");
+    }
+
+    if(!validaPeso(paciente.peso)){
+        erros.push("Peso inválido");
+    }
+
+    return erros;
+}
+
+function mostraErros(erros){
+    let ul = document.querySelector("#mensagens-erro");
+    ul.innerHTML = "";
+
+    erros.forEach(erro =>{
+        let li = document.createElement("li");
+        li.classList.add("msg-erro");
+        li.textContent = erro;
+        ul.appendChild(li);
+    });
 }
 
 
