@@ -143,3 +143,11 @@ button[disabled=disabled], button:disabled {
 	opacity: 0;
 	transition: 0.5s;
 }
+#filtro{
+	width: 30%;
+	padding: 1em;
+	margin-bottom: 1em;
+}
+.invisivel{
+	display: none;
+}
