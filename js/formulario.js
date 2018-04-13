@@ -1,10 +1,8 @@
 document.querySelector('#adicionar-paciente').onclick = function(event){
     event.preventDefault();
     let form = document.querySelector("#form-adiciona");
-    
-    let paciente = obterDadosPaciente(form);
 
-    let pacienteTr  =   montaTr(paciente);
+    let paciente = obterDadosPaciente(form);
 
     let erros = validaPaciente(paciente);
 
@@ -12,13 +10,18 @@ document.querySelector('#adicionar-paciente').onclick = function(event){
         mostraErros(erros);
         return;
     }
-
-    document.querySelector('#tabela-pacientes').appendChild(pacienteTr);
+    adicionarPaciente(paciente);
     let ul = document.querySelector("#mensagens-erro");
 
     form.reset();
     ul.innerHTML =  "";
 }
+function adicionarPaciente(paciente){
+
+    let pacienteTr  =   montaTr(paciente);
+    document.querySelector('#tabela-pacientes').appendChild(pacienteTr);
+}
+
 function obterDadosPaciente(form){
     
     paciente = {
